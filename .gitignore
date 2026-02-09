@@ -1,0 +1,35 @@
+# Data files
+data/raw/*.csv
+data/processed/**/*.npy
+data/processed/**/*.joblib
+
+# Model files
+models/*.joblib
+
+# Notebook checkpoints
+notebooks/.ipynb_checkpoints/
+.ipynb_checkpoints/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local summary (keep locally only)
+SUMMARY.txt

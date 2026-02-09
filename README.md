@@ -1,5 +1,7 @@
 # Credit Card Fraud Detection using Machine Learning
 
+**Latest Update:** Enhanced notebook suite with detailed decision tree analysis, complete SHAP explainability implementation, and refined ensemble evaluation (February 2026)
+
 ## Project Overview
 
 This project addresses the critical problem of detecting fraudulent credit card transactions in highly imbalanced datasets. With fraud representing only ~0.17% of all transactions, the challenge is to maximize fraud detection (high recall) while maintaining low false positive rates. Traditional accuracy-focused metrics fail in this context; instead, we emphasize precision-recall trade-offs and evaluations using PR-AUC—the most informative metric for imbalanced classification.
@@ -26,18 +28,27 @@ The analysis progresses through four key modeling phases:
    - Threshold analysis demonstrating precision-recall trade-offs
    - Establishes performance floor and confirms that simple models struggle with extreme imbalance
 
-### 2. **04_decision_trees.ipynb** – Single Tree Models
-   - Shallow decision trees to observe bias-variance trade-off
-   - Deep trees to examine whether added complexity captures fraud patterns
-   - Non-ensemble baseline before ensemble methods
+### 2. **04_decision_trees.ipynb** – Single Tree Models *(Enhanced)*
+   - **Shallow Decision Tree** (max_depth=5): Controlled complexity, basic non-linear patterns
+     - High recall but low precision (many false positives)
+   - **Deep Decision Tree** (no max_depth): Unrestricted growth, high variance model
+     - Improves precision but loses recall (overfitting demonstrated)
+   - Demonstrates instability of single trees and motivates ensemble methods
+   - Illustrates fundamental bias-variance trade-off under extreme class imbalance
 
 ### 3. **05_ensemble_models_rf_xgb.ipynb** – Ensemble Methods
    - **Random Forest**: Multiple decision trees with `class_weight="balanced"` and bag aggregation
-   - **XGBoost**: Gradient boosting with `scale_pos_weight` (class imbalance correction) and `eval_metric="aucpr"` (PR-AUC optimization)
-   - Demonstrates significant improvements in precision and recall
-
-### 4. **06_explainability_xgb.ipynb** – Model Interpretability
-   - Gain-based feature importance from the trained XGBoost model
+   - **XGBoost**: Gradient boosting with `scale_pos_weight` (cl *(Complete Implementation)*
+   - **Gain-Based Feature Importance**: Bar plot of top 20 features by contribution to splits
+     - Identifies V14, V10, V12, V4 as primary fraud indicators
+     - Non-uniform distribution confirms learned meaningful patterns
+   - **SHAP Global Summary Plot**: Aggregates SHAP values across test set (2,000 sample subset)
+     - Shows how each feature influences predictions in aggregate
+     - Visualizes non-linear and asymmetric effects
+   - **SHAP Waterfall (Local Explanations)**: Decomposes individual predictions
+     - Base value + feature contributions → final fraud probability
+     - Enables transparent explanations for specific transactions
+   - Builds stakeholder trust through interpretable, defensible model decisions
    - SHAP global summary plots showing aggregate feature contributions
    - SHAP waterfall explanations for individual predictions
    - Builds trust and transparency for fraud detection deployment
